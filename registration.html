@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Page</title>
+    <link rel="stylesheet" href="registration.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+   
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="screen">
+            <div class="button-container" style="display: flex; justify-content:space-between;;">
+                <i class="fas fa-arrow-left back-button" style="font-size: 24px; color: white; cursor: pointer; margin-right: 10px; " onclick="goBack()" title="Back"></i>
+                <i class="fas fa-home home-button" style="font-size: 24px; color: white; cursor: pointer; margin-right: 10px;" onclick="goHome()" title="Home"></i>
+                </div>
+            <h1>Create an Account</h1>
+            <br>
+            <form id="registration" autocomplete="off" method="post" >
+                <div class="row">
+                    <div class="email">
+                        <label class="label" for="email">Email:</label>
+                        <input type="text" placeholder="Email *" id="email" oninput="checkEmail()" />
+                        <div id="emailMessage" class="message"></div>
+                        <br>
+                    </div>
+
+                    <div class="username">
+                        <label class="label" for="username">Username:</label>
+                        <input type="text" placeholder="Username *" id="username" oninput="checkUsername()" />
+                        <div id="usernameMessage" class="message"></div>
+                        <br>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="Name">
+                        <label class="label" for="name">Name:</label>
+                        <input autocomplete="off" placeholder="Name *" type="text" name="name" id="name" oninput="validateName()" />
+                        <div id="nameMessage" class="message"></div>
+                        <br>
+                    </div>
+
+                    <div class="Phone_number">
+                        <label class="label" for="phoneNumber">Phone Number:</label>
+                        <input autocomplete="off" placeholder="Phone Number *" maxlength="10" type="tel" name="phoneNumber" id="phoneNumber" oninput="checkPhoneNumber()" />
+                        <div id="phoneNumberMessage" class="message"></div>
+                        <br>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="Qualification">
+                        <label class="label" for="qualification">Highest Qualification:</label>
+                        <select name="qualification" id="qualification" onchange="checkQualification()">
+                            <option value="" disabled selected>Select Qualification *</option>
+                            <option value="Ph.D.">Ph.D.</option>
+                            <option value="Master's Degree">Master's Degree</option>
+                            <option value="Bachelor's Degree">Bachelor's Degree</option>
+                            <option value="Diploma">Diploma</option>
+                            <option value="Associate Degree">Associate Degree</option>
+                        </select>
+                        <div id="qualificationMessage" class="message"></div>
+                        <br>
+                    </div>
+
+                    <div class="Discipline">
+                        <label class="label" for="Discipline">Discipline:</label>
+                        <select name="Discipline" id="Discipline" onchange="checkDiscipline()" >
+                            <option value="" disabled selected>Select Discipline *</option>
+                            <option value="Computer Science and Engineering">Computer Science and Engineering (CSE)</option>
+                            <option value="Mechanical Engineering">Mechanical Engineering (ME)</option>
+                            <option value="Electrical Engineering">Electrical Engineering (EE)</option>
+                            <option value="Civil Engineering">Civil Engineering (CE)</option>
+                            <option value="Chemical Engineering">Chemical Engineering (ChE)</option>
+                        </select>
+                        <div id="disciplineMessage" class="message"></div>
+                        <br>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="Password">
+                        <label class="label" for="password">Password:</label>
+                        <input type="password" placeholder="Password *" id="password" oninput="checkPassword()" />
+                        <div id="passwordMessage" class="message"></div>
+                        <br>
+                    </div>
+
+                    <div class="conPassword">
+                        <label class="label" for="confirmPassword">Confirm Password:</label>
+                        <input type="password" placeholder="Confirm Password *" id="confirmPassword" oninput="checkConfirmPassword()" />
+                        <div id="confirmPasswordMessage" class="message"></div>
+                        <br>
+                    </div>
+                </div>
+
+                <div id="container-button">
+                    <button type="button" onclick="submitForm()" class="submit">
+                        <span class="circle" aria-hidden="true">
+                            <span class="icon arrow"></span>
+                        </span>
+                        <span class="button-text">Submit</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="lottie-container" style="display: none; width: 100%; height: 100%; position: fixed; top: 0; left: 0; background: rgba(255, 255, 255, 0.8); justify-content: center; align-items: center;">
+        <div id="lottie"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.6/lottie.min.js"></script>
+    
+
+    <script>
+
+let phoneNumberAva = false;
+let emailAva = false;
+let usernameAva = false;
+
+        $(document).ready(function() {
+            $('#username').on('input', checkUsername);
+    $('#email').on('input', checkEmail);
+    $('#phoneNumber').on('input', checkPhoneNumber);
+    $('#password').on('input', checkPassword);
+    $('#confirmPassword').on('input', checkConfirmPassword);
+    $('#qualification').on('change', checkQualification); 
+    $('#Discipline').on('change', checkDiscipline); 
+        });
+    
+        function checkUsername() {
+            var username = $('#username').val();
+            if (!validateUsername(username)) {
+                $('#usernameMessage').text('Invalid username. Must be at least 3 characters.').addClass('error');
+            } else {
+                $('#usernameMessage').text('').removeClass('error');
+                checkAvailability('username', username);
+            }
+        }
+    
+        function validateEmail(email) {
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+    
+        function checkEmail() {
+            var email = $('#email').val();
+            if (!validateEmail(email)) {
+                $('#emailMessage').text('Invalid email').addClass('error');
+            } else {
+                $('#emailMessage').text('').removeClass('error');
+                checkAvailability('email', email); // Pass 'email' as the field name
+            }
+        }
+    
+        function checkPhoneNumber() {
+    var number = $('#phoneNumber').val();
+    if (number === '') {
+        $('#phoneNumberMessage').text('Phone number cannot be empty').addClass('error');
+    } else if (!validatePhoneNumber(number)) {
+        $('#phoneNumberMessage').text('Phone number must contain 10 digits').addClass('error');
+    } else if (!validateNumeric(number)) {
+        $('#phoneNumberMessage').text('Phone number must contain only numeric characters').addClass('error');
+    } else {
+        $('#phoneNumberMessage').text('').removeClass('error');
+        checkAvailability('phoneNumber', number); 
+    }
+}
+
+function validatePhoneNumber(number) {
+    var numberRegex = /^[0-9]{10}$/;
+    return numberRegex.test(number);
+}
+
+function validateNumeric(number) {
+    var numericRegex = /^[0-9]+$/;
+    return numericRegex.test(number);
+}
+
+    
+function checkAvailability(field, value) {
+    var availabilityMessageId = field + 'Message';
+    var availabilityMessage = $('#' + availabilityMessageId);
+
+    // Show the checking message
+    availabilityMessage.text('Checking ' + field + ' availability...');
+    availabilityMessage.removeClass('error').css('color', 'blue');
+
+    // Make an AJAX request to check availability
+    $.ajax({
+        type: 'POST',
+        url: getAvailabilityScriptName(field),
+        data: { [field]: value }, 
+        success: function(response) {
+            console.log(response); // for debugging
+            if (response.status === 'available') {
+                availabilityMessage.text(field.charAt(0).toUpperCase() + field.slice(1) + ' is available');
+                availabilityMessage.removeClass('error').css('color', 'green');
+                if (field === 'username') {
+                    usernameAva = true;
+                } else if (field === 'email') {
+                    emailAva = true;
+                } else if (field === 'phoneNumber') {
+                    phoneNumberAva = true;
+                }
+            } else {
+                availabilityMessage.text(field.charAt(0).toUpperCase() + field.slice(1) + ' is already registered');
+                availabilityMessage.addClass('error').css('color', 'red');
+                if (field === 'username') {
+                    usernameAva = false;
+                } else if (field === 'email') {
+                    emailAva = false;
+                } else if (field === 'phoneNumber') {
+                    phoneNumberAva = false;
+                }
+            }
+        },
+        error: function() {
+            console.log('Error checking ' + field + ' availability');
+            availabilityMessage.text('Error checking ' + field + ' availability');
+            availabilityMessage.addClass('error').css('color', 'red');
+            if (field === 'username') {
+                usernameAva = false;
+            } else if (field === 'email') {
+                emailAva = false;
+            } else if (field === 'phoneNumber') {
+                phoneNumberAva = false;
+            }
+        }
+    });
+}
+
+function getAvailabilityScriptName(field) {
+    if (field === 'username') {
+        return 'check_username_availability.php';
+    } else if (field === 'email') {
+        return 'check_email_availability.php';
+    } else if (field === 'phoneNumber') {
+        return 'check_phone_availability.php';
+    }
+}
+
+    
+    
+        function validateUsername(username) {
+            return username.length >= 3;
+        }
+    
+        function validatePasswordLength(password) {
+            return password.length >= 8;
+        }
+
+        function validatePasswordUppercase(password) {
+            var uppercaseRegex = /[A-Z]/;
+            return uppercaseRegex.test(password);
+        }
+
+        function validatePasswordLowercase(password) {
+            var lowercaseRegex = /[a-z]/;
+            return lowercaseRegex.test(password);
+        }
+
+        function validatePasswordDigit(password) {
+            var digitRegex = /\d/;
+            return digitRegex.test(password);
+        }
+
+        function validatePasswordSpecialCharacter(password) {
+            var specialCharacterRegex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+            return specialCharacterRegex.test(password);
+        }
+    
+        function validatePassword(password) {
+    var isValid = true;
+    var errorMessage = '';
+
+    if (!validatePasswordLength(password)) {
+        errorMessage += 'Password must be at least 8 characters long. ';
+        isValid = false;
+    }
+
+    if (!validatePasswordUppercase(password)) {
+        errorMessage += 'Password must contain at least one uppercase letter. ';
+        isValid = false;
+    }
+
+    if (!validatePasswordLowercase(password)) {
+        errorMessage += 'Password must contain at least one lowercase letter. ';
+        isValid = false;
+    }
+
+    if (!validatePasswordDigit(password)) {
+        errorMessage += 'Password must contain at least one digit. ';
+        isValid = false;
+    }
+
+    if (!validatePasswordSpecialCharacter(password)) {
+        errorMessage += 'Password must contain at least one special character. ';
+        isValid = false;
+    }
+
+    return errorMessage.trim();
+}
+
+    
+    function checkPassword() {
+    var password = $('#password').val();
+    var passwordMessage = $('#passwordMessage');
+    var errorMessage = validatePassword(password);
+
+    if (errorMessage === '') {
+        passwordMessage.text('').removeClass('error');
+        return isValid=true;
+    } else {
+        passwordMessage.text(errorMessage).addClass('error');
+        return isValid =false;
+    }
+}
+
+        function checkConfirmPassword() {
+            var confirmPassword = $('#confirmPassword').val();
+            if (confirmPassword === '') {
+                $('#confirmPasswordMessage').text('Confirm password cannot be empty').addClass('error');
+               return isValid=false;
+            } else {
+                $('#confirmPasswordMessage').text('').removeClass('error');
+                return isValid=true;
+            }
+        }
+    
+        function validateConfirmPassword(confirmPassword, password) {
+            return confirmPassword === password;
+        }
+    
+        function validateName(name) {
+            return name.trim() !== '';
+        }
+    
+        function checkQualification() {
+            var qualification = $('#qualification').val();
+            if (qualification===null || qualification==='') {
+                $('#qualificationMessage').text('Please select a qualification').addClass('error');
+                return isValid=false;
+            } else {
+                $('#qualificationMessage').text('').removeClass('error');
+                return isValid=true;
+            }
+        }
+
+        function checkDiscipline() {
+    var discipline = $('#Discipline').val();
+    console.log('checkDiscipline function called', discipline);//for debuging 
+    if (discipline === null || discipline === '') {
+        console.log('checkDiscipline function called with problem');
+        $('#disciplineMessage').text('Please select a discipline').addClass('error');
+        return isValid=false;
+    } else {
+        console.log('checkDiscipline function called with no problem');
+        $('#disciplineMessage').text('').removeClass('error');
+        return isValid=true
+    }
+}
+
+function checkPasswordMatch() {
+    var password = $('#password').val();
+    var confirmPassword = $('#confirmPassword').val();
+
+    if (password !== confirmPassword) {
+        $('#confirmPasswordMessage').text('Passwords do not match').addClass('error');
+        return false;
+    } else {
+        $('#confirmPasswordMessage').text('').removeClass('error');
+        return true;
+    }
+}
+
+
+function goBack() {
+    window.history.back();
+}
+
+function goHome() {
+    localStorage.clear(); 
+    sessionStorage.clear(); 
+    window.location.href = 'index.php'; 
+}
+
+    
+function submitForm() {
+    $('.message').text('').removeClass('error');
+
+    var username = $('#username').val();
+    var email = $('#email').val();
+    var password = $('#password').val();
+    var confirmPassword = $('#confirmPassword').val();
+    var qualification = $('#qualification').val();
+    var discipline = $('#Discipline').val();
+    var name = $('#name').val();
+    var phoneNumber = $('#phoneNumber').val();
+
+    if (!usernameAva) {
+        $('#usernameMessage').text('Username is not available').addClass('error');
+    }
+
+    if (!emailAva) {
+        $('#emailMessage').text('Email is not available').addClass('error');
+    }
+
+    if (!phoneNumberAva) {
+        $('#phoneNumberMessage').text('Phone number is not available').addClass('error');
+    }
+
+    if (!validateUsername(username)) {
+        $('#usernameMessage').text('Invalid username. Must be at least 3 characters.').addClass('error');
+    }
+
+    if (!validateEmail(email)) {
+        $('#emailMessage').text('Invalid email').addClass('error');
+    }
+
+    
+
+    if (!validatePassword(password)) {
+        $('#passwordMessage').text('Invalid password').addClass('error');
+    }
+
+    if (!validateConfirmPassword(confirmPassword, password)) {
+        $('#confirmPasswordMessage').text('Passwords do not match').addClass('error');
+    }
+
+    if (!validateName(name)) {
+        $('#nameMessage').text('Name cannot be empty').addClass('error');
+    }
+
+    if (!validatePhoneNumber(phoneNumber)) {
+        $('#phoneNumberMessage').text('Phone number must contain 10 digits and only numeric characters').addClass('error');
+    }
+
+    if (confirmPassword === '') {
+        $('#confirmPasswordMessage').text('Confirm password cannot be empty').addClass('error');
+    }
+
+    if (!checkPasswordMatch()) {
+        return;
+    }
+
+    checkQualification();
+    checkDiscipline();
+    checkConfirmPassword();
+    checkPassword();
+
+   
+
+    if ($('.message').hasClass('error')) {
+        alert('Please fix the following errors before submitting the form.');
+        return;
+    }
+
+    event.preventDefault();
+
+$.ajax({
+    type: 'POST',
+    url: 'registration.php',
+    data: {
+        username: username,
+        email: email,
+        password: password,
+        confirmPassword: confirmPassword,
+        qualification: qualification,
+        discipline: discipline,
+        name: name,
+        phoneNumber: phoneNumber
+    },
+    success: function(response) {
+        // Handle success response from server
+        
+        
+        // Show the Lottie animation
+        $('#lottie-container').css('display', 'flex');
+
+        // Load and play the Lottie animation
+        lottie.loadAnimation({
+            container: document.getElementById('lottie'), // the DOM element
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: 'Animation2.json' // the path to the animation file
+        });
+
+        // Hide the animation and redirect after 20 seconds
+        setTimeout(function() {
+            $('#lottie-container').css('display', 'none');
+            alert('Form submitted successfully!');
+            window.location.href = "login.html"; 
+            $('#registration')[0].reset();
+        }, 10000);
+    },
+    error: function(xhr, status, error) {
+        // Handle error response from server
+        console.error('Error:', error);
+        alert('An error occurred while submitting the form.');
+    }
+});
+
+}
+
+    </script>
+</body>
+</html>

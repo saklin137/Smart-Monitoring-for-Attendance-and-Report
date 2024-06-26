@@ -1,0 +1,221 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Raleway', sans-serif;
+  }
+  
+  /* Body and background styles */
+  body {
+    background: linear-gradient(90deg, #1574b3 0%, #6bbacc 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    color: #767373; /* Improved text readability */
+  }
+  
+  /* Container styles */
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-height: 100vh;
+    overflow: hidden;
+  }
+  
+  .screen {
+    background: linear-gradient(90deg, #3986c5, #6965d1ce);
+    position: relative;
+    height: 100vh; /* Updated to cover full height */
+    width: 1000px;
+    padding: 20px;
+    border-radius: 16px;
+    overflow: hidden;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #4CAF50 #78b8b3;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  
+  .container {
+    display: flex;
+    margin: 5%;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Updated to cover full height */
+    overflow: hidden;
+  }
+  
+  .screen::before {
+    content: '';
+    position: absolute;
+    top: -8px; /* Adjust this value as needed */
+    left: -8px; /* Adjust this value as needed */
+    right: -8px; /* Adjust this value as needed */
+    bottom: -8px; /* Adjust this value as needed */
+    background: linear-gradient(45deg, rgba(0,0,0,0.1), rgba(255,255,255,0.05)); /* Add a gradient for 3D look */
+    border-radius: 24px; /* Adjusted for a more pronounced 3D effect */
+    z-index: -1; /* Push behind the screen content */
+  }
+  
+  /* Scrollbar styles */
+  .screen::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  .screen::-webkit-scrollbar-thumb {
+    background-color: #85e7dd00;
+    border-radius: 10px;
+  }
+  
+  .screen::-webkit-scrollbar-track {
+    background-color: #78b8b3;
+  }
+  
+
+
+  /* h1 {
+    margin-bottom: 20px;
+    text-align: center;
+    color: #dae1d3; 
+  } */
+  
+
+  
+  .fade-line {
+    height: 2px;
+    background: linear-gradient(to right, #f0eaea, rgba(84, 22, 22, 0));
+    margin: 20px 0;
+    position: relative;
+  }
+  
+  
+  @keyframes fade {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        right: 100%;
+    }
+  }
+  
+  .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0%;
+  }
+  .logout-btn {
+    border: none;
+    border-radius: 20px;
+    background-color: #ff7f7f;
+    padding: 10px 20px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 600;
+    color: #fff;
+  }
+
+
+/* Styles for the submit button */
+.submit {
+    position: relative;
+    border: none;
+    margin-top: 5%;
+    margin-left: 80%;
+    border-radius: 20px;
+    background-color: #28a745; /* Green background color */
+    padding: 15px 30px; /* Add padding */
+    color: #fff;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold; /* Make the text bold */
+    overflow: hidden; /* Hide overflowing arrow */
+    transition: background-color 0.3s, transform 0.3s; /* Add transition for background color and transform */
+}
+
+/* Hover effect for the submit button */
+.submit:hover {
+    background-color: #218838; /* Darker green background color on hover */
+    transform: translateY(-2px); /* Move the button slightly up on hover */
+}
+
+
+
+h1 {
+    margin-bottom: 20px;
+    text-align: center;
+    color: #dae1d3; /* Update header text color to white */
+    font-weight: bold; /* Make header text bold */
+}
+
+/* Update table styles */
+.attendance-table {
+    width: 100%; /* Take full width of the container */
+    color: #fff; /* Set text color of the table to white */
+    border-collapse: collapse; /* Collapse borders to avoid double border lines */
+    table-layout: fixed; /* Prevent automatic adjustment of column widths */
+}
+
+.attendance-table th, .attendance-table td {
+    border: 1px solid #fff; /* Add border for cells */
+    padding: 8px; /* Add padding for cell content */
+    text-align: left; /* Align text to the left within cells */
+    white-space: normal; /* Allow text to wrap */
+    word-wrap: break-word; /* Break words when necessary */
+}
+
+.attendance-table th {
+    font-weight: bold; 
+    font-size: 20px;
+    background-color: #3f3f3f; 
+    color: #fff; 
+}
+
+.attendance-table tbody tr:nth-child(even) {
+    background-color: #646161; /* Alternate row background color */
+}
+
+/* Styles for the customized checkbox */
+.custom-checkbox {
+    display: block;
+    position: relative;
+    width: 100%; /* Width same as status box */
+    height: 25px; /* Set the desired height */
+    cursor: pointer;
+}
+
+.custom-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%; /* Height same as status box */
+    width: 100%; /* Width same as status box */
+    background-color: #fff;
+    border: 2px solid #28a745; /* Green color when checkbox is not selected */
+    transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+.custom-checkbox input:checked + .checkmark {
+    background-color: #28a745; /* Green color when checkbox is selected */
+}
+
+
+
+
+
+

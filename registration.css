@@ -1,0 +1,243 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Raleway', sans-serif;
+}
+
+body {
+  background: linear-gradient(90deg, #1574b3 0%, #6bbacc 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  color: #767373; 
+}
+
+/* Container styles */
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-height: 100vh;
+  overflow: hidden;
+}
+
+.screen {
+  background: linear-gradient(90deg, #3986c5, #6965d1ce);
+  position: relative;
+  height: auto;
+  width: 1000px;
+  padding: 20px; 
+  border-radius: 16px;
+  overflow-y: scroll;
+  max-height: calc(100vh - 40px); 
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer and Edge */
+}
+
+.screen::before {
+  content: '';
+  position: absolute;
+  top: -8px; 
+  left: -8px; 
+  right: -8px; 
+  bottom: -8px; 
+  background: linear-gradient(45deg, rgba(0,0,0,0.1), rgba(255,255,255,0.05)); 
+  border-radius: 24px; 
+  z-index: -1; 
+}
+
+.screen::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+h1 {
+  margin-bottom: 20px;
+  position: relative;
+  color: #dae1d3; 
+}
+
+h1::after {
+  content: "";
+  display: block;
+  height: 2px;
+  width: 60%;
+  background: linear-gradient(to right, #f0eaea, rgba(84, 22, 22, 0));
+  position: absolute;
+  bottom: -5px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.row > * {
+  flex: 1;
+}
+
+.label-input-group {
+  flex: 1;
+  margin: 0 10px; 
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 700;
+  font-size: 17px;
+  color: #0c0701; 
+}
+
+input, select {
+  width: calc(100% - 20px); 
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: 550;
+  background: #f0f0f0; 
+  border: 1px solid #ccc;
+  font-size: 16px;
+  outline: none;
+}
+
+select {
+  appearance: none;
+  background: linear-gradient(to right, #f0f0f0, #f0f0f0) right 10px center/15px auto, 
+              linear-gradient(to right, transparent, transparent) right 10px center/15px auto;
+  padding-right: 30px; 
+}
+
+button {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    outline: none;
+    border: 0;
+    vertical-align: middle;
+    text-decoration: none;
+    background: transparent;
+    padding: 0;
+    font-size: inherit;
+    font-family: inherit;
+}
+
+button.submit {
+    width: 12rem;
+    height: auto;
+    margin-top: 20px; 
+    margin-right: 20px;
+}
+
+button.submit .circle {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: relative;
+    display: block;
+    margin: 0;
+    width: 3rem;
+    height: 3rem;
+    background: #08173f;
+    border-radius: 1.625rem;
+}
+
+button.submit .circle .icon {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    background: #fff;
+}
+
+button.submit .circle .icon.arrow {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    left: 0.625rem;
+    width: 1.125rem;
+    height: 0.125rem;
+    background: none;
+}
+
+button.submit .circle .icon.arrow::before {
+    position: absolute;
+    content: "";
+    top: -0.25rem;
+    right: 0.0625rem;
+    width: 0.625rem;
+    height: 0.625rem;
+    border-top: 0.125rem solid #fff;
+    border-right: 0.125rem solid #fff;
+    transform: rotate(45deg);
+}
+
+button.submit .button-text {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0.75rem 0;
+    color: #eaeaef;
+    font-weight: 700;
+    line-height: 1.6;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+button:hover .circle {
+    width: 100%;
+}
+
+button:hover .circle .icon.arrow {
+    background: #fff;
+    transform: translate(1rem, 0);
+}
+
+button:hover .button-text {
+    color: #fff;
+}
+
+#container-button {
+    text-align: right;
+    margin-top: 20px; 
+    margin-right: 20px; 
+}
+
+input:focus,
+select:focus {
+    border-color: #2980b9; 
+    box-shadow: 0 0 5px rgba(41, 128, 185, 0.5); 
+}
+
+.error-message {
+  color: #e74c3c; 
+}
+
+.success-message {
+  color:rgb(104, 243, 104);
+}
+
+.message {
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+.success {
+    color: rgb(104, 243, 104);
+}
+
+.error {
+    color: red;
+}
+
+@media screen and (max-width: 768px) {
+    .row {
+        flex-direction: column; 
+    }
+
+    .label-input-group {
+        width: 100%; 
+        margin: 10px 0; 
+    }
+}

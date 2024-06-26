@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BBIT TEACHER LOGIN</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Raleway', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f8f8f8;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .login-via {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .social-icons a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #333;
+            font-size: 24px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .social-icons a:hover {
+            transform: scale(1.2);
+        }
+
+        .login__submit {
+            margin-top: 20px;
+        }
+
+        .button__text {
+            font-weight: bold;
+            font-size: 16px; /* Adjust the size as needed */
+        }
+
+        /* Dialog Box Styles */
+        .dialog-box {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 20px;
+            background-color: #87CEEB; /* Sky Blue */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            z-index: 999;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0;
+            border-radius: 5px;
+            background-color: #2ecc71; /* Green color */
+            animation: progressBarAnimation 5s linear forwards; /* 5 seconds duration */
+        }
+
+        @keyframes progressBarAnimation {
+            to {
+                width: 100%;
+            }
+        }
+    </style>
+    <style>
+        body {
+            background: linear-gradient(90deg, #c5f1f4, #6bbacc);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header h1 {
+            display: inline;
+            font-size: 24px; /* Adjust the size as needed */
+            margin-right: 10px; /* Adjust the right margin as needed */
+        }
+
+        .screen {
+            background: linear-gradient(90deg, #54a490, #78b8b3);
+            position: relative;
+            height: 600px;
+            width: 360px;
+            box-shadow: 0px 0px 24px #569689;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .screen__content {
+            z-index: 1;
+            position: relative;
+            height: 100%;
+            padding: 10px;
+            padding-top: 16px;
+        }
+
+        .screen__background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 0;
+            -webkit-clip-path: inset(0 0 0 0);
+            clip-path: inset(0 0 0 0);
+        }
+
+        .screen__background__shape {
+            transform: rotate(45deg);
+            position: absolute;
+        }
+
+        .screen__background__shape1 {
+            height: 520px;
+            width: 520px;
+            background: #FFF;
+            top: -50px;
+            right: 120px;
+            border-radius: 0 72px 0 0;
+        }
+
+        .screen__background__shape2 {
+            height: 220px;
+            width: 220px;
+            background: #63a5ac;
+            top: -172px;
+            right: 0;
+            border-radius: 32px;
+        }
+
+        .screen__background__shape3 {
+            height: 540px;
+            width: 190px;
+            background: linear-gradient(270deg, #54a0a4, #679b9e);
+            top: -24px;
+            right: 0;
+            border-radius: 32px;
+        }
+
+        .screen__background__shape4 {
+            height: 400px;
+            width: 200px;
+            background: #7bb6b9;
+            top: 420px;
+            right: 50px;
+            border-radius: 60px;
+        }
+
+        .login {
+            width: 100%;
+        }
+
+        .login__field {
+            padding: 20px 0px;
+            position: relative;
+        }
+
+        .login__input {
+            border: none;
+            border-bottom: 2px solid #a3cdd4;
+            background: none;
+            padding: 10px;
+            padding-left: 4px;
+            font-weight: 700;
+            width: 75%;
+            transition: .2s;
+        }
+
+        .login__input:active,
+        .login__input:focus,
+        .login__input:hover {
+            outline: none;
+            border-bottom-color: #1ea269;
+        }
+
+        .login__submit {
+            background: #fff;
+            font-size: 14px;
+            margin-top: 30px;
+            padding: 16px 20px;
+            border-radius: 26px;
+            border: 1px solid #d3e5e8;
+            text-transform: uppercase;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            color: #6de008;
+            box-shadow: 0px 2px 2px #569657;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .login__submit:active,
+        .login__submit:focus,
+        .login__submit:hover {
+            border-color: #679e6e;
+            outline: none;
+        }
+
+        .button__icon {
+            font-size: 24px;
+            margin-left: auto;
+            color: #80b575;
+        }
+
+        .loading-animation {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top-color: #4285F4;
+  animation: spin 1s linear infinite;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  display: none; /* Initially hidden */
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+#loader {
+            display: none; /* Hidden by default */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px; /* Adjust the size as needed */
+            height: 100px; /* Adjust the size as needed */
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="screen">
+            <div class="screen__background">
+                <span class="screen__background__shape screen__background__shape4"></span>
+                <span class="screen__background__shape screen__background__shape3"></span>        
+                <span class="screen__background__shape screen__background__shape2"></span>
+                <span class="screen__background__shape screen__background__shape1"></span>
+            </div>
+            <div class="screen__content">
+                <div class="header">
+                    <div class="button-container" style="display: flex; justify-content:space-between;;">
+                        <i class="fas fa-arrow-left back-button" style="font-size: 24px; color: black; cursor: pointer; margin-right: 10px; " onclick="goBack()" title="Back"></i>
+                        <i class="fas fa-home home-button" style="font-size: 24px; color: white; cursor: pointer; margin-right: 10px;" onclick="goHome()" title="Home"></i>
+                    </div>
+                    <h1>Online Attendance System</h1>
+                    <h2>BBIT</h2>
+                    <br><br>
+                    <p style="text-align: left; margin-left: 5px; font-weight: 800 ; font-size: 18px;"><u>Teacher's Login</u></p>
+                </div>
+                <form class="login" method="post" action="signin_logic.php" onsubmit="return validate()">
+                    <div class="login__field">
+                        <i class="login__icon fas fa-user"></i>
+                        <input type="text" class="login__input" placeholder="Username / Email *" id="user" name="user" autocomplete="off">
+                    </div>
+                    <div class="login__field">
+                        <i class="login__icon fas fa-lock"></i>
+                        <input type="password" class="login__input" placeholder="Password *" id="pass" name="pass">
+                        <i id="eyeIcon" class="login__icon fas fa-eye" style="display: none; cursor: pointer;" title="Show Password"></i>
+                        <i id="eyeIconSlash" class="login__icon fas fa-eye-slash" style="display: none; cursor: pointer;" title="Hide Password"></i>
+                    </div>
+                    <button class="button login__submit" type="submit">
+                        <span class="button__text">Log In Now</span>
+                        <i class="button__icon fas fa-chevron-right"></i>
+                    </button>
+                </form>
+                <div class="social-login">
+                    <h3><a href="registration.html" style=" margin-bottom: 10px;">Register Now</a></h3>
+
+                    <div class="login-via">
+                        <p>Login Via</p>
+                        <div class="social-icons">
+                            <a id="googleSignInButton" style="cursor: pointer" title="Google"><i class="fab fa-google"></i></a>
+                            <a href="#" onclick="showDialog('Mail')" title="Email"><i class="fas fa-envelope"></i></a>
+                            <a href="#" onclick="showDialog('Facebook')" title="Facebook"><i class="fab fa-facebook"></i></a>
+                        </div>
+                        <div id="loader"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Dialog Box -->
+    <div id="dialog" class="dialog-box">
+        <p>Coming Soon</p>
+        <div class="progress-container">
+            <div class="progress-bar"></div>
+        </div>
+    </div>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.14/lottie.min.js"></script>
+    <script>
+var googleSignInShown = false;
+var googleInitialized = false;
+
+var animation = lottie.loadAnimation({
+            container: document.getElementById('loader'), 
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: 'Animation3.json' 
+        });
+
+function showGoogleSignIn() {
+    console.log("showing google sign in");
+    if (!googleSignInShown) {
+        if (!googleInitialized) {
+            console.log("in delay");
+            setTimeout(showGoogleSignIn, 500);
+            return;
+        }
+
+        if (typeof google !== 'undefined' && google.accounts) {
+            console.log("condition");
+            // Show loading animation
+            document.getElementById('loader').style.display = 'block';
+            google.accounts.id.prompt();
+            googleSignInShown = true;
+        } else {
+            console.error('Google Sign-In client library is not fully loaded or initialized yet.');
+            document.getElementById('loader').style.display = 'none';
+        }
+    }
+}
+
+function handleCredentialResponse(response) {
+    console.log("data sending");
+    const idToken = response.credential;
+    const decodedToken = JSON.parse(atob(idToken.split('.')[1]));
+    const email = decodedToken.email;
+    window.location.href = "google_auth.php?email=" + email;
+
+    document.getElementById('loader').style.display = 'none';
+}
+
+function initGoogleSignIn() {
+    console.log("init function");
+    google.accounts.id.initialize({
+        client_id: '84696353303-8il8v2b3nj7tj7c5aopbtfvoa4gris74.apps.googleusercontent.com',
+        callback: handleCredentialResponse,
+        onError: function(error) {
+            console.log("error here");
+
+            clearGoogleSignInCache();
+        }
+    });
+    console.log("google initialized");
+    googleInitialized = true; 
+}
+
+
+function clearGoogleSignInCache() {
+    console.log("cleaning here");
+
+    google.accounts.id.disableAutoSelect();
+    google.accounts.id.cancel();
+    googleSignInShown = false;
+
+    document.getElementById('loader').style.display = 'none';
+}
+
+
+window.onload = function() {
+    initGoogleSignIn(); 
+
+
+    document.getElementById('googleSignInButton').addEventListener('click', function() {
+        console.log("button click");
+        showGoogleSignIn();
+    });
+
+  
+    window.addEventListener('focus', function() {
+        console.log("window focus");
+        clearGoogleSignInCache();
+    });
+
+
+    var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+            if (isChrome) {
+                var eyeIcon = document.getElementById("eyeIcon");
+                var eyeIconSlash = document.getElementById("eyeIconSlash");
+                var passwordField = document.getElementById("pass");
+
+                eyeIcon.style.display = "inline-block"; // Display eye icon for Chrome
+                eyeIconSlash.style.display = "none"; // Initially hide the eye-slash icon
+
+                // Toggle password visibility when eye icon is clicked
+                eyeIcon.addEventListener("click", function() {
+                    passwordField.type = "text";
+                    eyeIcon.style.display = "none"; // Hide open eye icon
+                    eyeIconSlash.style.display = "inline-block"; // Show close eye icon
+                });
+
+                // Toggle password visibility when eye-slash icon is clicked
+                eyeIconSlash.addEventListener("click", function() {
+                    passwordField.type = "password";
+                    eyeIconSlash.style.display = "none"; // Hide close eye icon
+                    eyeIcon.style.display = "inline-block"; // Show open eye icon
+                });
+            }
+
+
+};
+    
+function goBack() {
+    window.history.back();
+}
+
+function goHome() {
+    localStorage.clear(); 
+    sessionStorage.clear(); 
+    window.location.href = 'index.php'; 
+}
+        
+    
+        function validate(){
+            var a = document.getElementById("user").value;
+            var b = document.getElementById("pass").value;
+            if(a == '' && b == ''){
+                alert("Field can't be Empty");
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
+    
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("user").value = "";
+        });
+    
+        function showDialog(provider) {
+            var dialogBox = document.getElementById("dialog");
+            dialogBox.innerHTML = `<p>We are working on ${provider}</p>`;
+            dialogBox.style.display = "block";
+            setTimeout(function() {
+                dialogBox.style.display = "none";
+            }, 5000); // 5 seconds
+        }
+    </script>
+</body>
+</html>
